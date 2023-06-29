@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+
+<style>
+    .input-with-background {
+    border-color: darkorchid;
+    height: 87px;
+    width: 500px;
+    background-image: url({% static "images/slika.png" %});
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 120px;
+        background-color: transparent;
+}
+
+</style>
+<body>
+<div class="w-100" style="background-image: url('{% static 'images/customer.png' %}');
+    background-size: 100% 100%; height: 752px">
+   <div class="container w-75 text-center" style="padding-top: 230px">
+       <form action="{% url 'customer' %}" method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+       <div class="row text-center">
+
+        <div class="col-6">
+            {{ form.name }}
+        </div>
+           <div class="col-6">
+                <div class="input-with-background">
+                    {{ form.surname }}
+                </div>
+            </div>
+       </div>
+       <div class="row text-center pt-5">
+           <div class="col-6">
+            {{ form.username }}
+        </div>
+           <div class="col-6">
+            {{ form.password1 }}
+        </div>
+
+       </div>
+            <div class="row text-center pt-5">
+                <div class="col-6">
+
+                </div>
+           <div class="col-6">
+            {{ form.password2 }}
+        </div>
+       </div>
+            <div class="container w-75 text-center" style="padding-top: 60px">
+        <div class="row">
+            <div class="col-12">
+
+    <button type="submit" class="rounded-5 border border-0 px-3 w-2 mx-5" style="background-color: green; height: 70px; width:300px;font-size: 20px" value="POST"><b>SUBMIT</b></button>
+
+           </div>
+        </div>
+    </div>
+       </form>
+
+</div>
+
+</div>
+
+</body>
+</html>

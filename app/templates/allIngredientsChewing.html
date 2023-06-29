@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+<style>
+{#.circle {#}
+{#  width: fit-content;#}
+{#  display: inline-block;#}
+{#  padding: 10px;#}
+{#  border-radius: 50%;#}
+{#  background-color: #f1f1f1;#}
+{#}#}
+
+.text {
+  display: inline-block;
+
+    width: 150px;
+}
+
+</style>
+<body>
+<div class="w-100" style="background-image: url('{% static 'images/12.png' %}');
+    background-size: 100% 100%; height: 750px">
+     <div class="container text-center">
+     <h1 style="color: deeppink; font-style: oblique; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace" class="text-center">Ingredients of Chewing Gum</h1>
+
+     <div class="col-4">
+                 <a href="chewing.html" style="text-decoration: none">
+                <button class="rounded-3 border border-0" style="font-style: oblique; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; color: antiquewhite; background-color: hotpink; height: 40px; width: 130px; font-size: 20px">Previous</button>
+                </a>
+            </div>
+        <div class="row" style="margin-top: 100px">
+    {% for candy in candies %}
+     <div class="col-3 m-2" style="background-color: white; height: 500px; width: 300px;">
+                <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ candy.name }}</h2>
+                <img src="{{ candy.image.url }}" alt="Product Image" style="height: 150px; width: 150px">
+              <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">
+  <span class="text">
+    {{ candy.ingredients }}
+  </span>
+</div>
+
+
+         </div>
+{% endfor %}
+
+</div>
+     </div>
+</div>
+</body>
+</html>

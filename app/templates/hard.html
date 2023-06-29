@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="w-100" style="background-image: url('{% static 'images/12.png' %}');
+    background-size: 100% 100%;">
+    <h1 style="color: deeppink; font-style: oblique; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace" class="text-center">Hard Candy</h1>
+    <div class="container w-75 text-center mt-5">
+        <div class="row">
+            <div class="col-4">
+                 <a href="glavnaStrana.html" style="text-decoration: none">
+                <button class="rounded-3 border border-0" style="font-style: oblique; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; color: antiquewhite; background-color: hotpink; height: 40px; width: 130px; font-size: 20px">Previous</button>
+                </a>
+            </div>
+            <div class="col-4">
+                 <a href="allIngredientsHard.html" style="text-decoration: none">
+                <button class="rounded-3 border border-0" style="font-style: oblique; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; color: darkorchid; background-color: white; height: 90px; width: 230px; font-size: 20px">Show ingredients for all candy</button>
+                 </a>
+            </div>
+            <div class="col-4">
+                 <a href="cart.html" style="text-decoration: none">
+                <button class="rounded-5 border border-0" style="font-style: oblique; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; color: antiquewhite; background-color: darkorchid; height: 90px; width: 230px; font-size: 20px">Show items in your cart and pay</button>
+                 </a>
+            </div>
+        </div>
+    </div>
+
+
+     <div class="container text-center mt-5">
+        <div class="row">
+    {% for candy in candies %}
+     {% if candy.category.name == "Hard Candy" %}
+                <div class="col-3 m-2" style="background-color: white; height: 500px; width: 300px;">
+                    <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ candy.name }}</h2>
+                <img src="{{ candy.image.url }}" alt="Product Image" style="height: 150px; width: 150px">
+                <div class="container text-center w-75 mt-4">
+                <div class="rounded-5 text-center pt-3" style="background-color: hotpink ;width: 200px; height: 60px;color: antiquewhite">In stock: {{ candy.in_Stocked }}kg</div>
+                <button class="rounded-5 text-center mt-4 pt-1 border border-0" style="background-color: hotpink ;width: 200px; height: 60px;color: antiquewhite" onclick="addToCart('{{ candy.name }}', '{{ candy.id }}')">Add 100 grams to cart</button>
+                <div class="rounded-5 text-center mt-4 pt-3" style="background-color: hotpink ;width: 200px; height: 60px;color: antiquewhite">
+                    {{ candy.price }} denars for 100 grams</div>
+                    </div>
+            </div>
+
+            {% endif %}
+{% endfor %}
+</div>
+        </div>
+     </div>
+
+</body>
+
+
+<style>
+    .popup {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: green;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 9999;
+    }
+</style>
+<script>
+    let addToCartURL = "{% url 'cart' %}";
+</script>
+{#<script>#}
+{#  function addToCart(candyType) {#}
+{#    // AJAX request to trigger the Django view#}
+{#    var xhr = new XMLHttpRequest();#}
+{#    xhr.open("POST", "{% url 'add_to_cart' %}", true);#}
+{#    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");#}
+{#    xhr.send();#}
+{##}
+{#    // Show the popup with the appropriate message#}
+{#    var message;#}
+{#    if (candyType === "strawberry") {#}
+{#        message = "You added 100 grams of strawberry chocolate candy to your cart.";#}
+{#    } else if (candyType === "white") {#}
+{#        message = "You added 100 grams of white chocolate candy to your cart.";#}
+{#    } else if (candyType === "dark") {#}
+{#        message = "You added 100 grams of dark chocolate candy to your cart.";#}
+{#    }else if (candyType === "almond") {#}
+{#        message = "You added 100 grams of almond chocolate candy to your cart.";#}
+{#    }#}
+{##}
+{#    var popup = document.createElement("div");#}
+{#    popup.classList.add("popup");#}
+{#    popup.innerHTML = message;#}
+{#    document.body.appendChild(popup);#}
+{##}
+{#    // Remove the popup after 3 seconds#}
+{#    setTimeout(function() {#}
+{#            document.body.removeChild(popup);#}
+{#        }, 2000);#}
+{#}#}
+{##}
+{#</script>#}
+{#<script>#}
+{#    function addToCart(candyType) {#}
+{#  // AJAX request to trigger the Django view#}
+{#  var xhr = new XMLHttpRequest();#}
+{#  xhr.open("POST", "{% url 'add_to_cart' %}", true);#}
+{#  xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");#}
+{##}
+{#  // Set the request content type#}
+{#  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");#}
+{##}
+{#  // Create the data to be sent in the request#}
+{#  var data = "candyType=" + candyType;#}
+{##}
+{#  xhr.onreadystatechange = function() {#}
+{#    if (xhr.readyState === 4 && xhr.status === 200) {#}
+{#      // Show the popup with the appropriate message#}
+{#      var message;#}
+{#      if (candyType === "strawberry") {#}
+{#        message = "You added 100 grams of strawberry chocolate candy to your cart.";#}
+{#      } else if (candyType === "white") {#}
+{#        message = "You added 100 grams of white chocolate candy to your cart.";#}
+{#      } else if (candyType === "dark") {#}
+{#        message = "You added 100 grams of dark chocolate candy to your cart.";#}
+{#      } else if (candyType === "almond") {#}
+{#        message = "You added 100 grams of almond chocolate candy to your cart.";#}
+{#      }#}
+{##}
+{#      var popup = document.createElement("div");#}
+{#      popup.classList.add("popup");#}
+{#      popup.innerHTML = message;#}
+{#      document.body.appendChild(popup);#}
+{##}
+{#      // Remove the popup after 3 seconds#}
+{#      setTimeout(function() {#}
+{#        document.body.removeChild(popup);#}
+{#      }, 2000);#}
+{#    }#}
+{#  };#}
+{##}
+{#  // Send the request with the data#}
+{#  xhr.send(data);#}
+{#}#}
+{##}
+{#</script>#}
+
+
+{#<script>#}
+{#    function addToCart(candyId, candyName) {#}
+{#        var xhr = new XMLHttpRequest();#}
+{#        xhr.open("POST", "{% url 'add_to_cart' %}", true);#}
+{#        xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");#}
+{#        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");#}
+{#        xhr.onreadystatechange = function() {#}
+{#            if (xhr.readyState === 4 && xhr.status === 200) {#}
+{#                // Show the popup with the appropriate message#}
+{#                var message = "You added 100 grams of " + candyName + " chocolate candy to your cart.";#}
+{#                var popup = document.createElement("div");#}
+{#                popup.classList.add("popup");#}
+{#                popup.innerHTML = message;#}
+{#                document.body.appendChild(popup);#}
+{#                // Remove the popup after 3 seconds#}
+{#                setTimeout(function() {#}
+{#                    document.body.removeChild(popup);#}
+{#                }, 3000);#}
+{#            }#}
+{#        };#}
+{#        xhr.send("product_id=" + candyId + "&quantity=100");#}
+{#    }#}
+{#</script>#}
+
+<script>
+   function addToCart(candyType, productId) {
+  // AJAX request to trigger the Django view
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "{% url 'add_to_cart' %}", true);
+  xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+
+  // Set the request content type
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+  // Create the data to be sent in the request
+       var encodedCandyType = encodeURIComponent(candyType);
+  var data = "candyType=" + encodedCandyType + "&productId=" + productId;
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      var message;
+
+      // Show the popup with the appropriate message
+        message = "You added 100 grams of "+ candyType +" to your cart.";
+
+
+      var popup = document.createElement("div");
+      popup.classList.add("popup");
+      popup.innerHTML = message;
+      document.body.appendChild(popup);
+
+      // Remove the popup after 3 seconds
+      setTimeout(function() {
+        document.body.removeChild(popup);
+      }, 2000);
+    }
+  };
+
+  // Send the request with the data
+  xhr.send(data);
+}
+
+
+</script>
+</html>

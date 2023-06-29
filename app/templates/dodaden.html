@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="w-100" style="background-image: url('{% static 'images/12.png' %}');
+    background-size: 100% 100%; height: 750px">
+
+    <h1 style="color: deeppink; font-style: oblique; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: xxx-large" class="text-center">You add {{ product.name }}</h1>
+    <div class="container text-center mx-5" style="background-color: white; height: 550px; width: 300px; margin-top: 100px; float: left">
+        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product.name }}</h2>
+        <img src="{{ product.image.url }}" alt="Product Image" style="height: 200px; width: 220px">
+        <div class="container text-center w-75 mt-4">
+        <div class="rounded-5 text-center pt-3" style="background-color: hotpink ;width: 200px; height: 60px;color: antiquewhite">In stock: {{ product.in_Stocked }} kg</div>
+        <div class="rounded-5 text-center mt-4 pt-3" style="background-color: hotpink ;width: 200px; height: 60px;color: antiquewhite">Add one piece to cart</div>
+        <div class="rounded-5 text-center mt-4 pt-3" style="background-color: hotpink ;width: 200px; height: 60px;color: antiquewhite">{{ product.price }} denars for 100 grams</div>
+        </div>
+    </div>
+
+    <div  style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace;margin-top: 140px; margin-left: 500px; font-size: xx-large">Category: {{ product.category }}</div>
+
+     <a href="{% url 'addProduct' %}" style="text-decoration: none">
+            <button type="submit" class="rounded-5 border border-0 px-3 w-2" style="background-color: darkorchid; height: 50px; width:150px; margin-top: 400px; margin-left:220px">Add another candy</button>
+        </a>
+</div>
+</body>
+</html>

@@ -1,0 +1,700 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    {% load static %}#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">#}
+{#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>#}
+{#</head>#}
+{#<body>#}
+{#<div class="w-100" style="background-image: url('{% static 'images/12.png' %}');#}
+{#    background-size: 100% 100%;">#}
+{#    <div class="container text-center">#}
+{#    <h1 style="color: deeppink; font-style: oblique; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: xxx-large" class="text-center">Items in your cart</h1>#}
+{##}
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item " style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#    {% if data.image_url %}#}
+{#             <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#    <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#  <span class="text">#}
+{#    {{ data.quantity }} grams of {{ product_name }}#}
+{#  </span>#}
+{#    </div>#}
+{#    <form action="{% url 'cancel_order' product_name %}" method="POST">#}
+{#                    {% csrf_token %}#}
+{#                    <button type="submit">Cancel Order</button>#}
+{#                </form>#}
+{#    </div>#}
+{##}
+{#{% endfor %}#}
+{##}
+{#    </div>#}
+{##}
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item" style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            <span class="text">#}
+{#                {{ data.quantity }} grams of {{ product_name }}#}
+{#            </span>#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' product_name %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <button type="submit" class="cancel-order-btn">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+{##}
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item" style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            <span class="text">#}
+{#                {{ data.quantity }} grams of {{ product_name }}#}
+{#            </span>#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' product_name %}" method="POST" class="cancel-order-form">#}
+{#            {% csrf_token %}#}
+{#            <button type="submit" class="cancel-order-btn">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+{##}
+{##}
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item " style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            <span class="text">#}
+{#                {{ data.quantity }} grams of {{ product_name }}#}
+{#            </span>#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' product_name %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <button type="submit" name="item_id" value="{{ product_name }}">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+{##}
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item " style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            <span class="text">#}
+{#                {{ data.quantity }} grams of {{ product_name }}#}
+{#            </span>#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <input type="hidden" name="product_name" value="{{ product_name }}">#}
+{#            <button type="submit">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+{##}
+{#        <div class="row" style="margin-top: 100px">#}
+{#  {% for product_name, data in quantities.items %}#}
+{#  <div class="col-3 m-2 product-item" style="background-color: white; height: 500px; width: 300px;">#}
+{#    <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#    {% if data.image_url %}#}
+{#      <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#    {% endif %}#}
+{#    <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#      <span class="text">#}
+{#        {{ data.quantity }} grams of {{ product_name }}#}
+{#      </span>#}
+{#    </div>#}
+{#    <form class="cancel-order-form" data-product="{{ product_name }}">#}
+{#      {% csrf_token %}#}
+{#      <button type="button" class="cancel-order-button">Cancel Order</button>#}
+{#    </form>#}
+{#  </div>#}
+{#  {% endfor %}#}
+{#</div>#}
+{##}
+{#<script>#}
+{#  // Get the CSRF token from the cookie#}
+{#  function getCookie(name) {#}
+{#    let cookieValue = null;#}
+{#    if (document.cookie && document.cookie !== '') {#}
+{#      const cookies = document.cookie.split(';');#}
+{#      for (let i = 0; i < cookies.length; i++) {#}
+{#        const cookie = cookies[i].trim();#}
+{#        if (cookie.substring(0, name.length + 1) === (name + '=')) {#}
+{#          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));#}
+{#          break;#}
+{#        }#}
+{#      }#}
+{#    }#}
+{#    return cookieValue;#}
+{#  }#}
+{##}
+{#  // Send AJAX request to cancel the order#}
+{#  function cancelOrder(productName) {#}
+{#    const url = '/cancel_order/';#}
+{#    const csrftoken = getCookie('csrftoken');#}
+{#    const formData = new FormData();#}
+{#    formData.append('product_name', productName);#}
+{##}
+{#    fetch(url, {#}
+{#      method: 'POST',#}
+{#      headers: {#}
+{#        'X-CSRFToken': csrftoken,#}
+{#      },#}
+{#      body: formData,#}
+{#    })#}
+{#      .then(response => {#}
+{#        if (response.ok) {#}
+{#          // Remove the specific item from the interface#}
+{#          const productElement = document.querySelector(`[data-product="${productName}"]`).closest('.product-item');#}
+{#          productElement.remove();#}
+{#        }#}
+{#      })#}
+{#      .catch(error => console.error(error));#}
+{#  }#}
+{##}
+{#  // Attach event listeners to the cancel order buttons#}
+{#  const cancelOrderButtons = document.querySelectorAll('.cancel-order-button');#}
+{#  cancelOrderButtons.forEach(button => {#}
+{#    button.addEventListener('click', () => {#}
+{#      const productElement = button.closest('.cancel-order-form');#}
+{#      const productName = productElement.dataset.product;#}
+{#      cancelOrder(productName);#}
+{#    });#}
+{#  });#}
+{#</script>#}
+{##}
+{##}
+{#    <div class="container w-75" style=" margin-top: 50px; margin-left: 400px">#}
+{# <a href="payment.html" style="text-decoration: none">#}
+{#<button type="submit" class="rounded-5" style="border-color: darkorchid; height: 70px; width: 300px;#}
+{#        background-image: url('{% static 'images/cards.png' %}'); background-repeat: no-repeat;#}
+{#        background-position: right; background-size: 100px; background-color: darkorchid; color: antiquewhite">#}
+{#<b style="font-size: 30px; margin-left: -50px">PAY</b>#}
+{#</button>#}
+{# </a>#}
+{#        </div>#}
+{##}
+{#       <div class="row" style="margin-top: 70px">#}
+{##}
+{# {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item" style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            {% if data.category == "Cotton Candy" or data.category == "Lollipop" or data.category == "Chewing Gum" %}#}
+{#                <span class="text">#}
+{#                    {{ data.quantity }} pieces of {{ product_name }}#}
+{#                </span>#}
+{#            {% else %}#}
+{#                <span class="text">#}
+{#                    {{ data.quantity }} grams of {{ product_name }}#}
+{#                </span>#}
+{#            {% endif %}#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' product_name %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <button type="submit" class="cancel-order-btn">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#       </div>#}
+{##}
+{##}
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item" style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            <span class="text">#}
+{#                {{ data.quantity }} grams of {{ product_name }}#}
+{#            </span>#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' product_name %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <button type="submit" class="cancel-order-btn">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+{##}
+{##}
+{##}
+{#<script>#}
+{#  // Get the CSRF token from the cookie#}
+{#  function getCookie(name) {#}
+{#    let cookieValue = null;#}
+{#    if (document.cookie && document.cookie !== '') {#}
+{#      const cookies = document.cookie.split(';');#}
+{#      for (let i = 0; i < cookies.length; i++) {#}
+{#        const cookie = cookies[i].trim();#}
+{#        if (cookie.substring(0, name.length + 1) === (name + '=')) {#}
+{#          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));#}
+{#          break;#}
+{#        }#}
+{#      }#}
+{#    }#}
+{#    return cookieValue;#}
+{#  }#}
+{##}
+{#  // Send AJAX request to cancel the order#}
+{#  function cancelOrder(productName) {#}
+{#    const url = '/cancel_order/';#}
+{#    const csrftoken = getCookie('csrftoken');#}
+{#    const formData = new FormData();#}
+{#    formData.append('product_name', productName);#}
+{##}
+{#    fetch(url, {#}
+{#      method: 'POST',#}
+{#      headers: {#}
+{#        'X-CSRFToken': csrftoken,#}
+{#      },#}
+{#      body: formData,#}
+{#    })#}
+{#      .then(response => {#}
+{#        if (response.ok) {#}
+{#          // Remove the specific item from the interface#}
+{#          const productElement = document.querySelector(`[data-product="${productName}"]`).closest('.product-item');#}
+{#          productElement.remove();#}
+{#        }#}
+{#      })#}
+{#      .catch(error => console.error(error));#}
+{#  }#}
+{##}
+{#  // Attach event listeners to the cancel order buttons#}
+{#  const cancelOrderButtons = document.querySelectorAll('.cancel-order-button');#}
+{#  cancelOrderButtons.forEach(button => {#}
+{#    button.addEventListener('click', () => {#}
+{#      const productElement = button.closest('.cancel-order-form');#}
+{#      const productName = productElement.dataset.product;#}
+{#      cancelOrder(productName);#}
+{#    });#}
+{#  });#}
+{#</script>#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#<script>#}
+{#  // Get the CSRF token from the cookie#}
+{#  function getCookie(name) {#}
+{#    let cookieValue = null;#}
+{#    if (document.cookie && document.cookie !== '') {#}
+{#      const cookies = document.cookie.split(';');#}
+{#      for (let i = 0; i < cookies.length; i++) {#}
+{#        const cookie = cookies[i].trim();#}
+{#        if (cookie.substring(0, name.length + 1) === (name + '=')) {#}
+{#          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));#}
+{#          break;#}
+{#        }#}
+{#      }#}
+{#    }#}
+{#    return cookieValue;#}
+{#  }#}
+{##}
+{#  // Send AJAX request to cancel the order#}
+{#  function cancelOrder(productName) {#}
+{#    const url = '/cancel_order/';#}
+{#    const csrftoken = getCookie('csrftoken');#}
+{#    const formData = new FormData();#}
+{#    formData.append('product_name', productName);#}
+{##}
+{#    fetch(url, {#}
+{#      method: 'POST',#}
+{#      headers: {#}
+{#        'X-CSRFToken': csrftoken,#}
+{#      },#}
+{#      body: formData,#}
+{#    })#}
+{#      .then(response => response.json())#}
+{#      .then(data => {#}
+{#        if (data.success) {#}
+{#          // Remove the specific item from the interface#}
+{#          const productElement = document.querySelector(`[data-product="${productName}"]`).closest('.product-item');#}
+{#          productElement.remove();#}
+{#        } else {#}
+{#          console.error('Failed to cancel order');#}
+{#        }#}
+{#      })#}
+{#      .catch(error => console.error(error));#}
+{#  }#}
+{##}
+{#  // Attach event listeners to the cancel order buttons#}
+{#  const cancelOrderButtons = document.querySelectorAll('.cancel-order-button');#}
+{#  cancelOrderButtons.forEach(button => {#}
+{#    button.addEventListener('click', () => {#}
+{#      const productElement = button.closest('.cancel-order-form');#}
+{#      const productName = productElement.dataset.product;#}
+{#      cancelOrder(productName);#}
+{#    });#}
+{#  });#}
+{#</script>#}
+{##}
+{##}
+{##}
+{##}
+{##}
+{##}
+{#<script>#}
+{#    document.addEventListener('DOMContentLoaded', function() {#}
+{#        const cancelOrderForms = document.querySelectorAll('.cancel-order-form');#}
+{#        cancelOrderForms.forEach(function(form) {#}
+{#            form.addEventListener('submit', function(event) {#}
+{#                event.preventDefault();#}
+{#                const confirmation = confirm('Are you sure you want to cancel this order?');#}
+{#                if (confirmation) {#}
+{#                    const productItem = form.closest('.product-item');#}
+{#                    productItem.style.display = 'none';#}
+{#                    form.submit();#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    });#}
+{#</script>#}
+{##}
+{#    </div>#}
+{#</div>#}
+{#</body>#}
+{#</html>#}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="w-100" style="background-image: url('{% static 'images/12.png' %}');
+    background-size: 100% 100%;">
+    <div class="container text-center">
+    <h1 style="color: deeppink; font-style: oblique; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace; font-size: xxx-large" class="text-center">Items in your cart</h1>
+
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item " style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#    {% if data.image_url %}#}
+{#             <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#    <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#  <span class="text">#}
+{#    {{ data.quantity }} grams of {{ product_name }}#}
+{#  </span>#}
+{#    </div>#}
+{#    <form action="{% url 'cancel_order' product_name %}" method="POST">#}
+{#                    {% csrf_token %}#}
+{#                    <button type="submit">Cancel Order</button>#}
+{#                </form>#}
+{#    </div>#}
+{##}
+{#{% endfor %}#}
+{##}
+{#    </div>#}
+
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item" style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            <span class="text">#}
+{#                {{ data.quantity }} grams of {{ product_name }}#}
+{#            </span>#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' product_name %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <button type="submit" class="cancel-order-btn">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item" style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            <span class="text">#}
+{#                {{ data.quantity }} grams of {{ product_name }}#}
+{#            </span>#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' product_name %}" method="POST" class="cancel-order-form">#}
+{#            {% csrf_token %}#}
+{#            <button type="submit" class="cancel-order-btn">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+
+
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item " style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            <span class="text">#}
+{#                {{ data.quantity }} grams of {{ product_name }}#}
+{#            </span>#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' product_name %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <button type="submit" name="item_id" value="{{ product_name }}">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+
+{#        <div class="row" style="margin-top: 100px">#}
+{#    {% for product_name, data in quantities.items %}#}
+{#    <div class="col-3 m-2 product-item " style="background-color: white; height: 500px; width: 300px;">#}
+{#        <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#        {% if data.image_url %}#}
+{#            <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#        {% endif %}#}
+{#        <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#            <span class="text">#}
+{#                {{ data.quantity }} grams of {{ product_name }}#}
+{#            </span>#}
+{#        </div>#}
+{#        <form action="{% url 'cancel_order' %}" method="POST">#}
+{#            {% csrf_token %}#}
+{#            <input type="hidden" name="product_name" value="{{ product_name }}">#}
+{#            <button type="submit">Cancel Order</button>#}
+{#        </form>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
+
+{#        <div class="row" style="margin-top: 100px">#}
+{#  {% for product_name, data in quantities.items %}#}
+{#  <div class="col-3 m-2 product-item" style="background-color: white; height: 500px; width: 300px;">#}
+{#    <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>#}
+{#    {% if data.image_url %}#}
+{#      <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">#}
+{#    {% endif %}#}
+{#    <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">#}
+{#      <span class="text">#}
+{#        {{ data.quantity }} grams of {{ product_name }}#}
+{#      </span>#}
+{#    </div>#}
+{#    <form class="cancel-order-form" data-product="{{ product_name }}">#}
+{#      {% csrf_token %}#}
+{#      <button type="button" class="cancel-order-button">Cancel Order</button>#}
+{#    </form>#}
+{#  </div>#}
+{#  {% endfor %}#}
+{#</div>#}
+{##}
+{#<script>#}
+{#  // Get the CSRF token from the cookie#}
+{#  function getCookie(name) {#}
+{#    let cookieValue = null;#}
+{#    if (document.cookie && document.cookie !== '') {#}
+{#      const cookies = document.cookie.split(';');#}
+{#      for (let i = 0; i < cookies.length; i++) {#}
+{#        const cookie = cookies[i].trim();#}
+{#        if (cookie.substring(0, name.length + 1) === (name + '=')) {#}
+{#          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));#}
+{#          break;#}
+{#        }#}
+{#      }#}
+{#    }#}
+{#    return cookieValue;#}
+{#  }#}
+{##}
+{#  // Send AJAX request to cancel the order#}
+{#  function cancelOrder(productName) {#}
+{#    const url = '/cancel_order/';#}
+{#    const csrftoken = getCookie('csrftoken');#}
+{#    const formData = new FormData();#}
+{#    formData.append('product_name', productName);#}
+{##}
+{#    fetch(url, {#}
+{#      method: 'POST',#}
+{#      headers: {#}
+{#        'X-CSRFToken': csrftoken,#}
+{#      },#}
+{#      body: formData,#}
+{#    })#}
+{#      .then(response => {#}
+{#        if (response.ok) {#}
+{#          // Remove the specific item from the interface#}
+{#          const productElement = document.querySelector(`[data-product="${productName}"]`).closest('.product-item');#}
+{#          productElement.remove();#}
+{#        }#}
+{#      })#}
+{#      .catch(error => console.error(error));#}
+{#  }#}
+{##}
+{#  // Attach event listeners to the cancel order buttons#}
+{#  const cancelOrderButtons = document.querySelectorAll('.cancel-order-button');#}
+{#  cancelOrderButtons.forEach(button => {#}
+{#    button.addEventListener('click', () => {#}
+{#      const productElement = button.closest('.cancel-order-form');#}
+{#      const productName = productElement.dataset.product;#}
+{#      cancelOrder(productName);#}
+{#    });#}
+{#  });#}
+{#</script>#}
+
+
+    <div class="container w-75" style=" margin-top: 50px; margin-left: 400px">
+ <a href="payment.html" style="text-decoration: none">
+<button type="submit" class="rounded-5" style="border-color: darkorchid; height: 70px; width: 300px;
+        background-image: url('{% static 'images/cards.png' %}'); background-repeat: no-repeat;
+        background-position: right; background-size: 100px; background-color: darkorchid; color: antiquewhite">
+<b style="font-size: 30px; margin-left: -50px">PAY</b>
+</button>
+ </a>
+        </div>
+
+       <div class="row" style="margin-top: 60px">
+  {% for product_name, data in quantities.items %}
+  <div class="col-3 m-2 product-item" style="background-color: white; height: 500px; width: 300px;">
+    <h2 style="color: deeppink; font-family: 'Consolas', 'Menlo', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', monospace">{{ product_name }}</h2>
+    {% if data.image_url %}
+      <img src="{{ data.image_url }}" alt="{{ product_name }} image" style="height: 150px; width: 150px">
+    {% endif %}
+    <div class="rounded-5 circle mt-3" style="background-color: lightpink; color: black; word-wrap: break-word;">
+      <span class="text">
+        {{ data.quantity }} grams of {{ product_name }}
+      </span>
+    </div>
+    <form class="cancel-order-form" data-product="{{ product_name }}">
+      {% csrf_token %}
+      <button type="button" class="cancel-order-button rounded-5 text-center mt-4 border border-0 p-2" style="background-color: hotpink ;width: 150px; height: 50px;color: antiquewhite">Cancel Order</button>
+    </form>
+  </div>
+  {% endfor %}
+</div>
+
+
+
+<script>
+  // Get the CSRF token from the cookie
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
+
+  // Send AJAX request to cancel the order
+  function cancelOrder(productName) {
+    const url = '/cancel_order/';
+    const csrftoken = getCookie('csrftoken');
+    const formData = new FormData();
+    formData.append('product_name', productName);
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
+      body: formData,
+    })
+      .then(response => {
+        if (response.ok) {
+          // Remove the specific item from the interface
+          const productElement = document.querySelector(`[data-product="${productName}"]`).closest('.product-item');
+          productElement.remove();
+        }
+      })
+      .catch(error => console.error(error));
+  }
+
+  // Attach event listeners to the cancel order buttons
+  const cancelOrderButtons = document.querySelectorAll('.cancel-order-button');
+  cancelOrderButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const productElement = button.closest('.cancel-order-form');
+      const productName = productElement.dataset.product;
+      cancelOrder(productName);
+    });
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+{#<script>#}
+{#    document.addEventListener('DOMContentLoaded', function() {#}
+{#        const cancelOrderForms = document.querySelectorAll('.cancel-order-form');#}
+{#        cancelOrderForms.forEach(function(form) {#}
+{#            form.addEventListener('submit', function(event) {#}
+{#                event.preventDefault();#}
+{#                const confirmation = confirm('Are you sure you want to cancel this order?');#}
+{#                if (confirmation) {#}
+{#                    const productItem = form.closest('.product-item');#}
+{#                    productItem.style.display = 'none';#}
+{#                    form.submit();#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    });#}
+{#</script>#}
+
+    </div>
+</div>
+</body>
+</html>
