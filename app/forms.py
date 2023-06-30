@@ -192,3 +192,31 @@ class AdminAuthenticationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
         fields = ['username', 'password1', 'password2', 'name', 'surname']
+
+
+class LoginForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update(
+            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Username'})
+        self.fields['password'].widget.attrs.update(
+            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Password'})
+
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username', 'autocomplete': 'off'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', 'autocomplete': 'new-password'}))
+
+
+class LoginFormAdmin(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(LoginFormAdmin, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update(
+            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Username'})
+        self.fields['password'].widget.attrs.update(
+            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Password'})
+
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username', 'autocomplete': 'off'}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', 'autocomplete': 'new-password'}))

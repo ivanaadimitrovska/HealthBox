@@ -25,15 +25,13 @@ from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
 from app.views import addProduct, addPr, customer, glavna, cokoladni, add_to_cart, cart, ingredients, kosnicka, \
-    cancel_order, payment, finish, adminLogin, index, cotton, chewing, gummy, hard, lollipop, gummyIngre, chewingIngre, chocoIngre, cottonIngre, hardIngre, lollipopIngre, blog, aboutUs, contact
+    cancel_order, payment, finish, adminLogin, index, cotton, chewing, gummy, hard, lollipop, gummyIngre, chewingIngre, chocoIngre, cottonIngre, hardIngre, lollipopIngre, blog, aboutUs, contact, login_view, login_viewAdmin
 
 app_name = 'app'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/', index, name="index"),
-    path('index/adminLogin.html', adminLogin, name='adminLogin'),
-    path('index/adminCustomer.html', customer, name="customer"),
     path('addProduct/', addProduct, name="addProduct"),
     path('product/<int:product_id>/', addPr, name='addPr'),
     path('product/<int:product_id>/addProduct/', addProduct, name='addProduct'),
@@ -45,6 +43,12 @@ urlpatterns = [
     path('cart/', cart, name='cart'),
     # path('cokoladni/allIngredientsChocolate.html', ingredients, name='ingredients'),
     path('cokoladni/cart.html', kosnicka, name='kosnicka'),
+
+    path('index/adminCustomer.html', login_view, name="login"),
+    path('index/adminLogin.html', login_viewAdmin, name='login_viewAdmin'),
+    path('index/register.html', customer, name="customer"),
+    path('index/registerAdmin.html', adminLogin, name="adminLogin"),
+
 
     path('glavna/glavnaStrana.html', glavna, name="glavna"),
     path('cokoladni/cotton.html', cotton, name="cotton"),

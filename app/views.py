@@ -1,5 +1,6 @@
 import urllib
 
+from django.contrib.auth import authenticate, login
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Sum, F
 from django.http import HttpResponseNotAllowed, HttpResponseBadRequest, HttpResponse, JsonResponse
@@ -7,8 +8,10 @@ from dateutil.parser import parse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 # Create your views here.
-from app.forms import ProductForm, UserAuthenticationForm, PaymentForm, AdminAuthenticationForm
+from app.forms import ProductForm, UserAuthenticationForm, PaymentForm, AdminAuthenticationForm, LoginForm
 from app.models import Product, UserAuthentication, Cart, AdminProfile, Order
+from django.contrib import messages
+
 
 
 def index(request):
@@ -34,7 +37,7 @@ def customer(request):
             print(form_data.errors)
     else:
         form_data = UserAuthenticationForm()
-    return render(request, "adminCustomer.html", context={"form": form_data})
+    return render(request, "register.html", context={"form": form_data})
 
 
 def addProduct(request):
@@ -70,7 +73,7 @@ def adminLogin(request):
             print(form_data.errors)
     else:
         form_data = AdminAuthenticationForm()
-    return render(request, "adminLogin.html", context={"form": form_data})
+    return render(request, "registerAdmin.html", context={"form": form_data})
 
 
 def addPr(request, product_id):
@@ -555,3 +558,60 @@ def aboutUs(request):
 
 def contact(request):
     return render(request, "contact.html")
+
+
+# def login_view(request):
+#     if request.method == 'POST':
+#         form = LoginForm(request.POST)
+#         if form.is_valid():
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password']
+#             user = authenticate(request, username=username, password=password)
+#             if user is not None and user.check_password(password):
+#                 # User exists and password is correct
+#                 login(request, user)
+#                 return redirect('glavna')  # Redirect to the home page after successful login
+#             else:
+#                 # User doesn't exist or password is incorrect
+#                 messages.error(request, 'Invalid username or password. Please register first.')
+#                 return redirect('customer')
+#     else:
+#         form = LoginForm()
+#     return render(request, 'adminCustomer.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('glavna')
+            else:
+                error_message = 'Invalid username or password, please register to our site!'
+                messages.error(request, error_message)  # Add error message to messages framework
+    else:
+        form = LoginForm()
+
+    return render(request, 'adminCustomer.html', {'form': form})
+
+
+def login_viewAdmin(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('addProduct')
+            else:
+                error_message = 'Invalid username or password, please register to our site!'
+                messages.error(request, error_message)  # Add error message to messages framework
+    else:
+        form = LoginForm()
+
+    return render(request, 'adminLogin.html', {'form': form})
