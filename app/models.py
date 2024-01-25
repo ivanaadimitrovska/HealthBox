@@ -14,30 +14,21 @@ class AdminProfile(models.Model):
     surname = models.CharField(max_length=255, null=True, blank=True)
 
 
-# class Category(models.Model):
-#     name = models.CharField(max_length=255)
-#     description = models.TextField()
-#
-#     def __str__(self):
-#         return self.name+" candy"
-
 class Category(models.Model):
-    CHOCOLATE = 'Chocolate Candy'
-    COTTON_CANDY = 'Cotton Candy'
-    CHEWING_GUM = 'Chewing Gum'
-    LOLLIPOP = 'Lollipop'
-    HARD_CANDY = 'Hard Candy'
-    GUMMY_CANDY = 'Gummy Candy'
-    # Add more category choices if needed
+    VEGETABLES = 'Vegetables'
+    FRUITS = 'Fruits'
+    FLOURS = 'Flours'
+    SEEDS = 'Seeds'
+    DRINKS = 'Drinks'
+    BUTTERS = 'Butters'
 
     CATEGORY_CHOICES = [
-        (CHOCOLATE, 'Chocolate Candy'),
-        (COTTON_CANDY, 'Cotton Candy'),
-        (CHEWING_GUM, 'Chewing Gum'),
-        (LOLLIPOP, 'Lollipop'),
-        (HARD_CANDY, 'Hard Candy'),
-        (GUMMY_CANDY, 'Gummy Candy')
-        # Add more choices if needed
+        (VEGETABLES, 'Vegetables'),
+        (FRUITS, 'Fruits'),
+        (FLOURS, 'Flours'),
+        (SEEDS, 'Seeds'),
+        (DRINKS, 'Drinks'),
+        (BUTTERS, 'Butters')
     ]
 
     name = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
@@ -55,10 +46,6 @@ class Product(models.Model):
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
     ingredients = models.TextField(null=True, blank=True)
 
-
-# class ProductCategory(models.Model):
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)

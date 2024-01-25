@@ -1,17 +1,11 @@
-import urllib
-
 from django.contrib.auth import authenticate, login
-from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Sum, F
-from django.http import HttpResponseNotAllowed, HttpResponseBadRequest, HttpResponse, JsonResponse
-from dateutil.parser import parse
+from django.http import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-# Create your views here.
+
 from app.forms import ProductForm, UserAuthenticationForm, PaymentForm, AdminAuthenticationForm, LoginForm
 from app.models import Product, UserAuthentication, Cart, AdminProfile, Order
 from django.contrib import messages
-
 
 
 def index(request):
@@ -22,11 +16,10 @@ def customer(request):
     if request.method == "POST":
         form_data = UserAuthenticationForm(request.POST, request.FILES)
         if form_data.is_valid():
-            user = form_data.save(commit=False)  # Step 1: Create a new user record in auth_user table
+            user = form_data.save(commit=False)
             user.save()
 
             user_authentication = UserAuthentication.objects.create(
-                # Step 2: Create a new UserAuthentication record associated with the user
                 user=user,
                 name=form_data.cleaned_data['name'],
                 surname=form_data.cleaned_data['surname']
@@ -51,6 +44,27 @@ def addProduct(request):
         else:
             print(form_data.errors)
     return render(request, "addProduct.html", context={"form": ProductForm})
+
+
+def delete_product(request, product_id):
+    if request.method == "POST":
+        product = get_object_or_404(Product, pk=product_id)
+        product.delete()
+        return redirect('addProduct')
+    else:
+        return redirect('addProduct')
+
+
+def editProduct(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    if request.method == "POST":
+        form_data = ProductForm(request.POST, request.FILES, instance=product)
+        if form_data.is_valid():
+            form_data.save()
+            return redirect("addPr", product_id=product.id)
+    else:
+        form = ProductForm(instance=product)
+        return render(request, "editProduct.html", {'form': form, 'product': product})
 
 
 def adminLogin(request):
@@ -86,7 +100,7 @@ def glavna(request):
 
 
 def cokoladni(request):
-    candies = Product.objects.filter(category__name='Chocolate Candy')
+    candies = Product.objects.filter(category__name='Vegetables')
 
     context = {
         'candies': candies
@@ -146,109 +160,22 @@ def lollipop(request):
     return render(request, 'lollipop.html', context)
 
 
-# @login_required
-# def add_to_cart(request):
-#     if request.method == 'POST':
-#         candy_type = request.POST.get('candyType')
-#         #decoded_candy_type = urllib.parse.unquote(candy_type)
-#         product_id = request.POST.get('productId')
-#         quantity = 100  # Assuming a fixed quantity of 100 grams
-#
-#         # Retrieve the product from the database
-#         try:
-#             product = Product.objects.get(id=product_id)
-#         except Product.DoesNotExist:
-#             return redirect('add_to_cart')  # or show an error message
-#
-#         # Get the authenticated user
-#         user = request.user
-#
-#         # Create or update the cart item
-#         cart_item, created = Cart.objects.get_or_create(user=user, product=product)
-#         if not created:
-#             cart_item.quantity += quantity
-#             cart_item.save()
-#
-#     return redirect('add_to_cart')
-
-
-# @login_required
-# def add_to_cart(request):
-#     if request.method == 'POST':
-#         # Get the product details from the request
-#         product_id = request.POST.get('product_id')
-#         quantity = int(request.POST.get('quantity', 1))  # Default to 1 if quantity is not provided
-#
-#         # Retrieve the product from the database
-#         try:
-#             product = Product.objects.get(id=product_id)
-#         except Product.DoesNotExist:
-#             return redirect('cart')  # or show an error message
-#
-#         # Get the authenticated user
-#         user = request.user
-#
-#         # Retrieve or create the cart item
-#         cart_item, created = Cart.objects.get_or_create(product=product, user=user)
-#
-#         # Update the quantity
-#         if created:
-#             cart_item.quantity = quantity
-#         else:
-#             cart_item.quantity += quantity
-#
-#         cart_item.save()
-#
-#     return redirect('add_to_cart')
-
-# from django.shortcuts import get_object_or_404
-
-@login_required  # OVA E TOCHNOTO
+@login_required
 def add_to_cart(request):
     if request.method == 'POST':
-        # Get the candy type and quantity from the request
         candy_type = request.POST.get('candyType')
         quantity = int(request.POST.get('quantity', 100))
 
-        # Retrieve the product from the database
         product = get_object_or_404(Product, name=candy_type)
 
-        # Get the authenticated user
         user = request.user
 
-        # Create a new cart item for each click
         cart_item = Cart(product=product, quantity=quantity, user=user)
         cart_item.save()
 
-        return redirect('cart')  # or redirect to the appropriate page
+        return redirect('cart')
 
     return HttpResponseBadRequest()
-
-
-# @login_required
-# def add_to_cart(request):
-#     if request.method == 'POST':
-#         # Get the product details from the request
-#         product_id = request.POST.get('product_id')
-#         quantity = int(request.POST.get('quantity', 1))  # Default to 1 if quantity is not provided
-#
-#         # Retrieve the product from the database
-#         try:
-#             product = Product.objects.get(id=product_id)
-#         except Product.DoesNotExist:
-#             return redirect('cart')  # or show an error message
-#
-#         # Get the authenticated user
-#         user = request.user
-#
-#         # Check if the product is already in the cart for the user
-#         cart_item, created = Cart.objects.get_or_create(user=user, product=product)
-#
-#         # Update the quantity of the cart item
-#         cart_item.quantity += quantity
-#         cart_item.save()
-#
-#     return redirect('cart')
 
 
 def cart(request):
@@ -335,51 +262,15 @@ def ingredients(request):
         context['cotton_candies'] = cotton_candies
         return render(request, "allIngredientsHard.html", context)
     elif gummy_candy.exists():
-        context['gummy_candies'] = gummy_candy  # Update the key to 'gummy_candies'
+        context['gummy_candies'] = gummy_candy
         return render(request, "allIngredientsGummy.html", context)
     else:
         return HttpResponse("No candies found.")
-    # candies = Product.objects.filter(category__name='chocolate')
-    #
-    # context = {
-    #     'candies': candies
-    # }
-    # return render(request, "allIngredientsChocolate.html", context)
 
 
+@login_required
 def kosnicka(request):
     cart_items = Cart.objects.filter(user=request.user)
-
-    # quantities = {}
-    #
-    # for cart_item in cart_items:
-    #     product_name = cart_item.product.name
-    #     quantity = cart_item.quantity
-    #     if product_name in quantities:
-    #         if quantity is not None:
-    #             quantities[product_name] += quantity
-    #     else:
-    #         quantities[product_name] = quantity or 0
-    #
-    # # Pass the quantities dictionary to the template for rendering
-    # return render(request, 'cart.html', {'quantities': quantities})
-
-    # quantities = {}
-    #
-    # for cart_item in cart_items:
-    #     product_name = cart_item.product.name
-    #     quantity = cart_item.quantity
-    #     if product_name in quantities:
-    #         if quantity is not None:
-    #             quantities[product_name] += quantity
-    #     else:
-    #         quantities[product_name] = quantity or 0
-    #
-    # # Fetch the product images using the product names
-    # product_images = {product.name: product.image for product in Product.objects.filter(name__in=quantities.keys())}
-    #
-    # # Pass the quantities and product_images dictionaries to the template for rendering
-    # return render(request, 'cart.html', {'quantities': quantities, 'product_images': product_images})
 
     quantities = {}
 
@@ -395,140 +286,17 @@ def kosnicka(request):
 
     return render(request, 'cart.html', {'quantities': quantities})
 
-    # quantities = {}
-    #
-    # for cart_item in cart_items:
-    #     product_name = cart_item.product.name
-    #     quantity = cart_item.quantity
-    #     category = cart_item.product.category.name  # Get the category name
-    #
-    #     if category == 'Cotton Candy':
-    #         # Adjust the quantity for "Cotton Candy" product
-    #         quantity += 1  # Assuming 1 piece = 100 grams
-    #
-    #     if product_name in quantities:
-    #         if quantity is not None:
-    #             quantities[product_name]['quantity'] += quantity
-    #     else:
-    #         quantities[product_name] = {'quantity': quantity or 0,
-    #                                     'category': category,  # Add the category information
-    #                                     'image_url': cart_item.product.image.url if cart_item.product.image else None}
-    #
-    # return render(request, 'cart.html', {'quantities': quantities})
-
-
-# def cancel_order(request, product_name):
-#     # Retrieve the cart item based on the product_name and user
-#     try:
-#         cart_item = Cart.objects.get(product__name=product_name, user=request.user)
-#     except Cart.DoesNotExist:
-#         # Handle case when cart item is not found
-#         return redirect('cart')  # Redirect to the cart page or any other suitable page
-#
-#     # Perform any additional checks or logic before canceling the order
-#
-#     # Delete the cart item
-#     cart_item.delete()
-#
-#     # Redirect back to the cart page or any other suitable page
-#     return redirect('cart')
-
-# def cancel_order(request, product_name):
-#     # Retrieve the user's cart
-#     cart_item = Cart.objects.filter(user=request.user, product__name=product_name).first()
-#
-#     if cart:
-#         # Delete the cart item
-#         cart_item.delete()
-#
-#     # Redirect back to the cart page or any other suitable page
-#     return redirect('cart')
-
-
-# def cancel_order(request, product_name):
-#     # Retrieve the user's cart items for the specified product
-#     cart_items = Cart.objects.filter(user=request.user, product__name=product_name)
-#
-#     # Get the total quantity to be removed
-#     total_quantity = cart_items.aggregate(total_quantity=Sum('quantity'))['total_quantity']
-#
-#     if cart_items.exists():
-#         # Delete the cart items
-#         cart_items.delete()
-#
-#         # Update the remaining quantities in the cart
-#         Cart.objects.filter(user=request.user).exclude(product__name=product_name).update(quantity=F('quantity') - total_quantity)
-#
-#     # Redirect back to the cart page or any other suitable page
-#     return redirect('cart')
-
-# def cancel_order(request, product_name):
-#     # Retrieve the user's cart items for the specified product
-#     cart_items = Cart.objects.filter(user=request.user, product__name=product_name)
-#
-#     if cart_items.exists():
-#         # Delete the cart items
-#         cart_items.delete()
-#
-#     # Redirect back to the cart page or any other suitable page
-#     return redirect('cart')
-
-# def cancel_order(request):
-#     if request.method == 'POST':
-#         item_id = request.POST.get('item_id')
-#         if item_id:
-#             # Retrieve the user's cart item for the specified product
-#             cart_item = Cart.objects.filter(user=request.user, product__name=item_id).first()
-#
-#             if cart_item:
-#                 # Delete the cart item
-#                 cart_item.delete()
-#
-#     # Redirect back to the cart page or any other suitable page
-#     return redirect('cart')
-
-# def cancel_order(request):
-#     if request.method == 'POST':
-#         product_name = request.POST.get('product_name')
-#         if product_name:
-#             # Retrieve the user's cart item for the specified product
-#             cart_item = Cart.objects.filter(user=request.user, product__name=product_name).first()
-#
-#             if cart_item:
-#                 # Delete the cart item
-#                 cart_item.delete()
-#
-#     # Redirect back to the cart page or any other suitable page
-#     return redirect('cart')
-
 
 def cancel_order(request):
     if request.method == 'POST':
         product_name = request.POST.get('product_name')
         if product_name:
-            # Retrieve the user's cart items for the specified product
             cart_items = Cart.objects.filter(user=request.user, product__name=product_name)
 
             if cart_items.exists():
-                # Delete all the cart items for the product
                 cart_items.delete()
 
-    # Redirect back to the cart page or any other suitable page
     return redirect('cart')
-
-
-# def cancel_order(request):
-#     if request.method == 'POST':
-#         product_name = request.POST.get('product_name')
-#         if product_name:
-#             # Delete the order associated with the product
-#             Order.objects.filter(product__name=product_name).delete()
-#
-#             # Return a JSON response indicating the success of the operation
-#             return JsonResponse({'success': True})
-#
-#     # Return a JSON response indicating the failure of the operation
-#     return JsonResponse({'success': False})
 
 
 def finish(request):
@@ -540,7 +308,6 @@ def payment(request):
         form_data = PaymentForm(request.POST, request.FILES)
         if form_data.is_valid():
             post = form_data.save(commit=False)
-            # post.image = form_data.cleaned_data['image']
             post.save()
             return redirect("finish")
         else:
@@ -560,25 +327,6 @@ def contact(request):
     return render(request, "contact.html")
 
 
-# def login_view(request):
-#     if request.method == 'POST':
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user = authenticate(request, username=username, password=password)
-#             if user is not None and user.check_password(password):
-#                 # User exists and password is correct
-#                 login(request, user)
-#                 return redirect('glavna')  # Redirect to the home page after successful login
-#             else:
-#                 # User doesn't exist or password is incorrect
-#                 messages.error(request, 'Invalid username or password. Please register first.')
-#                 return redirect('customer')
-#     else:
-#         form = LoginForm()
-#     return render(request, 'adminCustomer.html', {'form': form})
-
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -591,7 +339,7 @@ def login_view(request):
                 return redirect('glavna')
             else:
                 error_message = 'Invalid username or password, please register to our site!'
-                messages.error(request, error_message)  # Add error message to messages framework
+                messages.error(request, error_message)
     else:
         form = LoginForm()
 
@@ -610,7 +358,7 @@ def login_viewAdmin(request):
                 return redirect('addProduct')
             else:
                 error_message = 'Invalid username or password, please register to our site!'
-                messages.error(request, error_message)  # Add error message to messages framework
+                messages.error(request, error_message)
     else:
         form = LoginForm()
 

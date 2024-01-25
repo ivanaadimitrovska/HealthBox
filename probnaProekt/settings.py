@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'rest_framework',
+    'corsheaders'
 ]
+
+STATIC_URL = '/static/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,14 +52,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
+
+REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": [
+    "rest_framework.permissions.AllowAny"]}
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 ROOT_URLCONF = 'probnaProekt.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'app/templates']
+        'DIRS': [os.path.join(BASE_DIR, 'untitled/build')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -64,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static'
             ],
         },
     },
@@ -117,7 +130,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "data/")
 MEDIA_URL = '/data/'
 
@@ -125,3 +138,18 @@ MEDIA_URL = '/data/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_DIRS = [
+    # ... other static file directories
+    os.path.join(BASE_DIR, 'untitled/build/static')
+]
+
+STATICFILES_FINDERS = [
+    # ...
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    # ...
+]
+
+STATIC_ROOT = 'app/static/static'
+
+

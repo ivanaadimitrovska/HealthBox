@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Edit Product</title>
+    <!-- Add your CSS and JavaScript links here -->
+</head>
+<body>
+    <h1>Edit Product: {{ product.name }}</h1>
+
+    <form action="{% url 'editProduct' product_id=product.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Display form fields -->
+        <div>
+            <label for="id_name">Name:</label>
+            {{ form.name }}
+        </div>
+
+        <div>
+            <label for="id_category">Category:</label>
+            {{ form.category }}
+        </div>
+
+        <div>
+            <label for="id_price">Price:</label>
+            {{ form.price }}
+        </div>
+
+        <div>
+            <label for="id_ingredients">Ingredients:</label>
+            {{ form.ingredients }}
+        </div>
+
+        <div>
+            <label for="id_in_Stocked">In Stock:</label>
+            {{ form.in_Stocked }}
+        </div>
+
+        <div>
+            <label for="id_image">Image:</label>
+            {{ form.image }}
+        </div>
+
+        <button type="submit">Save Changes</button>
+    </form>
+</body>
+</html>
