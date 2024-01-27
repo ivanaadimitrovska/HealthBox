@@ -145,23 +145,25 @@ class UserAuthenticationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(UserAuthenticationForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
-            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Username'})
-        self.fields['password1'].widget.attrs.update(
-            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Password1'})
-        self.fields['password2'].widget.attrs.update(
-            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Password2'})
+            {'class': 'form-control', 'placeholder': 'Username'})
+        self.fields['password'].widget.attrs.update(
+            {'class': 'form-control', 'placeholder': 'Password'})
+        self.fields['confirm_password'].widget.attrs.update(
+            {'class': 'form-control', 'placeholder': 'Confirm Password'})
 
     name = forms.CharField(
-        widget=forms.TextInput(attrs={'class': 'form-control input-with-background rounded-0', 'placeholder': 'Name'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Name'})
     )
     surname = forms.CharField(
         widget=forms.TextInput(
-            attrs={'class': 'form-control input-with-background rounded-0', 'placeholder': 'Surname'})
+            attrs={'class': 'form-control', 'placeholder': 'Surname'})
     )
+
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['username', 'password1', 'password2', 'name', 'surname']
+        fields = ['username', 'password', 'confirm_password', 'name', 'surname']
+
 
 
 class AdminUserCreationForm(UserCreationForm):
@@ -176,10 +178,10 @@ class AdminAuthenticationForm(UserCreationForm):
         super(AdminAuthenticationForm, self).__init__(*args, **kwargs)
         self.fields['username'].widget.attrs.update(
             {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Username'})
-        self.fields['password1'].widget.attrs.update(
-            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Password1'})
-        self.fields['password2'].widget.attrs.update(
-            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Password2'})
+        self.fields['password'].widget.attrs.update(
+            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Password'})
+        self.fields['confirm_password'].widget.attrs.update(
+            {'class': 'form-control input-with-background rounded-0', 'placeholder': 'Confirm Password'})
 
     name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control input-with-background rounded-0', 'placeholder': 'Name'})
@@ -191,7 +193,7 @@ class AdminAuthenticationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ['username', 'password1', 'password2', 'name', 'surname']
+        fields = ['username', 'password', 'confirm_password', 'name', 'surname']
 
 
 class LoginForm(forms.Form):
@@ -205,7 +207,8 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username', 'autocomplete': 'off'}))
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', 'autocomplete': 'new-password'}))
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'placeholder': 'Password', 'autocomplete': 'new-password'}))
 
 
 class LoginFormAdmin(forms.Form):
@@ -219,4 +222,5 @@ class LoginFormAdmin(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username', 'autocomplete': 'off'}))
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password', 'autocomplete': 'new-password'}))
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'placeholder': 'Password', 'autocomplete': 'new-password'}))

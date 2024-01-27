@@ -13,16 +13,20 @@ def index(request):
 
 
 def customer(request):
+    print("IVANAAAA")
     if request.method == "POST":
+        print("TUKA")
         form_data = UserAuthenticationForm(request.POST, request.FILES)
         if form_data.is_valid():
             user = form_data.save(commit=False)
+            print("HEREEE")
             user.save()
 
             user_authentication = UserAuthentication.objects.create(
                 user=user,
                 name=form_data.cleaned_data['name'],
-                surname=form_data.cleaned_data['surname']
+                surname=form_data.cleaned_data['surname'],
+                #username=form_data.cleaned_data['username']
             )
 
             return redirect("glavna")
